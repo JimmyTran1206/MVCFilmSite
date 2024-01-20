@@ -47,11 +47,41 @@ public class FilmController {
 		return mv;
 	}
 
+	@RequestMapping(path = "insertfilm.do")
+	public ModelAndView insertFilm(Film film) {
+		ModelAndView mv = new ModelAndView();
+		List<Film> listFilm = new ArrayList<>();
+		Film insertedFilm = filmDAO.createFilm(film); // insert the film, get the id.
+		Film retrievedFilm = filmDAO.findFilmById(insertedFilm.getId()); // retrieve the new film by Id to update
+																			// language field
+		if (film != null) {
+			listFilm.add(retrievedFilm);
+		} else {
+			listFilm.add(null); // Add a null film to indicate no match
+		}
+		mv.addObject("listFilm", listFilm);
+		mv.setViewName("WEB-INF/views/viewfilm.jsp");
+		return mv;
+	}
+
+	@RequestMapping(path = "viewfilmbykeyword.do")
+	public ModelAndView viewFilmByKeyword(@RequestParam("keyword") String keyword) {
+		ModelAndView mv = new ModelAndView();
+		List<Film> listFilm = filmDAO.findFilmBySearchKeyword(keyword);
+		if (listFilm.isEmpty()) {
+			listFilm.add(null);
+		}
+		mv.addObject("listFilmSize", listFilm.size());
+		mv.addObject("listFilm", listFilm);
+		mv.setViewName("WEB-INF/views/viewfilm.jsp");
+		return mv;
+	}
+
 	@RequestMapping(path = "addfilm.do", method = RequestMethod.GET)
 	public String showAddFilmForm(Model model) {
 		// Display the form for adding a new film
 		model.addAttribute("film", new Film());
-		return "WEB-INF/views/addfilm.jsp";
+		return "WEB-INF/views/addFilm.jsp";
 	}
 
 	@RequestMapping(path = "addfilm.do", method = RequestMethod.POST)
@@ -66,7 +96,7 @@ public class FilmController {
 		// Display the form for deleting a film
 		Film film = filmDAO.findFilmById(id);
 		model.addAttribute("film", film);
-		return "WEB-INF/views/deletefilm.jsp";
+		return "WEB-INF/views/deleteFilm.jsp";
 	}
 
 	@RequestMapping(path = "deletefilm.do", method = RequestMethod.POST)

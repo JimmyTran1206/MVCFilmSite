@@ -7,7 +7,7 @@ public class Film {
 	private String title;
 	private String description;
 	private int releaseYear;
-	private int languageId;
+	private String languageId;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length;
@@ -45,7 +45,7 @@ public class Film {
 		this.language = language;
 	}
 
-	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
+	public Film(int id, String title, String description, int releaseYear, String languageId, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
 			List<Actor> actorList) {
 		super();
@@ -95,11 +95,11 @@ public class Film {
 		this.releaseYear = releaseYear;
 	}
 
-	public int getLanguageId() {
+	public String getLanguageId() {
 		return languageId;
 	}
 
-	public void setLanguageId(int languageId) {
+	public void setLanguageId(String languageId) {
 		this.languageId = languageId;
 	}
 

@@ -18,23 +18,45 @@
 		<h1>Film details</h1>
 	</header>
 	<main>
+		<c:if test="${listFilmSize>1}">
+			<h2>There are ${listFilmSize} films matched your search</h2>
+		</c:if>
+
+		<c:if test="${listFilmSize==1}">
+			<c:forEach var="film" items="${listFilm}">
+				<c:if test="${not empty film}">
+					<h2>There is ${listFilmSize} film matched your search</h2>
+				</c:if>
+			</c:forEach>
+		</c:if>
+
+
 		<c:forEach var="film" items="${listFilm}">
-			<ul>
-				<li>Film id: #${film.id}</li>
-				<li>Title: ${film.title}</li>
-				<li>Release Year: ${film.releaseYear}</li>
-				<li>Rating: ${film.rating}</li>
-				<li>Language: ${film.language}</li>
-				<li>Description: ${film.description}</li>
-				<li>Casting Actors:</li>
-				<ol>
-					<c:forEach var="actor" items="${film.actorList}">
-						<li>${actor.firstName} ${actor.lastName}</li>
-					</c:forEach>
-				</ol>
-			</ul>
-			<hr />
+			<c:if test="${empty film}">
+				<h2>Cannot find the film specified</h2>
+			</c:if>
+
+			<c:if test="${not empty film}">
+				<ul>
+					<li>Film id: #${film.id}</li>
+					<li>Title: ${film.title}</li>
+					<li>Release Year: ${film.releaseYear}</li>
+					<li>Rating: ${film.rating}</li>
+					<li>Language: ${film.language}</li>
+					<li>Description: ${film.description}</li>
+					<li>Casting Actors:</li>
+					<ol>
+						<c:forEach var="actor" items="${film.actorList}">
+							<li>${actor.firstName}${actor.lastName}</li>
+						</c:forEach>
+					</ol>
+				</ul>
+				<hr />
+			</c:if>
+
 		</c:forEach>
+
+
 		<a href="home.do"> Return to the main menu</a>
 	</main>
 	<script

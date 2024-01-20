@@ -71,7 +71,7 @@ public class FilmDAOImpl implements FilmDAO {
 				film.setTitle(filmResult.getString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleaseYear(filmResult.getInt("release_year"));
-				film.setLanguageId(filmResult.getInt("language_id"));
+				film.setLanguageId(filmResult.getString("language_id"));
 				film.setRentalDuration(filmResult.getInt("rental_duration"));
 				film.setRentalRate(filmResult.getDouble("rental_rate"));
 				film.setLength(filmResult.getInt("length"));
@@ -154,7 +154,7 @@ public class FilmDAOImpl implements FilmDAO {
 				film.setTitle(filmResult.getString("title"));
 				film.setDescription(filmResult.getString("description"));
 				film.setReleaseYear(filmResult.getInt("release_year"));
-				film.setLanguageId(filmResult.getInt("language_id"));
+				film.setLanguageId(filmResult.getString("language_id"));
 				film.setRentalDuration(filmResult.getInt("rental_duration"));
 				film.setRentalRate(filmResult.getDouble("rental_rate"));
 				film.setLength(filmResult.getInt("length"));
@@ -194,12 +194,13 @@ public class FilmDAOImpl implements FilmDAO {
 			pstmt.setString(1, film.getTitle());
 			pstmt.setString(2, film.getDescription());
 			pstmt.setInt(3, film.getReleaseYear());
-			pstmt.setInt(4, film.getLanguageId());
+			pstmt.setString(4, film.getLanguageId());
 			pstmt.setInt(5, film.getRentalDuration());
 			pstmt.setDouble(6, film.getRentalRate());
 			pstmt.setInt(7, film.getLength());
 			pstmt.setDouble(8, film.getReplacementCost());
 			pstmt.setString(9, film.getRating());
+			System.out.println("*******************"+pstmt);
 			int insertCount = pstmt.executeUpdate();
 			if (insertCount == 1) {
 				ResultSet keys = pstmt.getGeneratedKeys();

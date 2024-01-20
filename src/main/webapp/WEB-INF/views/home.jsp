@@ -31,7 +31,7 @@
 
 						<form action="viewfilmbyid.do" method="GET">
 							<div class="form-group">
-								<label for="filmId">Film Id</label> <input type="text"
+								<label for="filmId">Film Id</label> <input type="number"
 									class="form-control" placeholder="Enter the film id" name="id">
 								<small class="form-text text-muted">Enter an integer
 									value representing a film id</small>
@@ -77,26 +77,25 @@
 					<div class="accordion-body">
 						<form action="insertfilm.do" method="POST">
 							<div class="form-group">
-								<label for="filmTitle">Film Title</label> <input id="filmTitle"
+								<label for="filmTitle">Film Title*</label> <input id="filmTitle"
 									type="text" class="form-control" placeholder="Enter a title"
-									name="title"> <small class="form-text text-muted">Enter
+									name="title" required> <small class="form-text text-muted">Enter
 									a film title to be added to the database</small>
 
 							</div>
 
 							<div class="form-group">
-								<label for="filmDescription">Film Description</label>
-								<textarea id="filmDescription"
-									class="form-control" placeholder="Enter a description"
-									name="description"></textarea>
+								<label for="filmDescription">Film Description*</label>
+								<textarea id="filmDescription" class="form-control"
+									placeholder="Enter a description" name="description" required></textarea>
 								<small class="form-text text-muted">Enter a film
 									description to be added to the database</small>
 							</div>
 
 							<div class="form-group">
-								<label for="filmReleaseYear">Release Year</label> <input
+								<label for="filmReleaseYear">Release Year*</label> <input
 									id="filmReleaseYear" type="number" class="form-control"
-									placeholder="Enter the release year" name="releaseYear">
+									placeholder="Enter the release year" name="releaseYear" required>
 								<small class="form-text text-muted">Enter the film
 									release year</small>
 							</div>
@@ -113,17 +112,38 @@
 								</select> <small class="form-text text-muted">Select the film
 									language</small>
 							</div>
-							
+
 							<div class="form-group">
 								<label for="filmRentalDuration">Rental duration</label> <input
 									id="filmRentalDuration" type="number" class="form-control"
-									placeholder="Enter the release year" name="rentalDuration">
-								<small class="form-text text-muted">Enter the film
-									release year</small>
+									placeholder="Enter the rental duration" name="rentalDuration" value=3>
+								<small class="form-text text-muted">Enter the rental
+									duration</small>
 							</div>
-							
-							
-							
+
+							<div class="form-group">
+								<label for="filmRentalRate">Rental Rate</label> <input
+									id="filmRentalRate" type="number" step="0.01"
+									class="form-control" placeholder="Enter the rental rate"
+									name="rentalRate" value=4.99> <small class="form-text text-muted">Enter
+									the rental rate</small>
+							</div>
+
+							<div class="form-group">
+								<label for="filmLength">Length</label> <input
+									id="filmLength" type="number" class="form-control"
+									placeholder="Enter film length" name="length" value = 90>
+								<small class="form-text text-muted">Enter the film length</small>
+							</div>
+
+							<div class="form-group">
+								<label for="filmReplacementCost">Replacement Cost</label> <input
+									id="filmReplacementCost" type="number" step="0.01"
+									class="form-control" placeholder="Enter the replacement cost"
+									name="replacementCost" value= 19.99> <small class="form-text text-muted">Enter
+									the replacement cost</small>
+							</div>
+
 							<div class="form-group">
 								<label for="filmRating">Rating</label> <select id="filmRating"
 									class="form-control" name="rating">
@@ -135,8 +155,6 @@
 								</select> <small class="form-text text-muted">Select the film
 									rating</small>
 							</div>
-
-
 
 
 							<button type="submit" class="btn btn-primary">Add new
