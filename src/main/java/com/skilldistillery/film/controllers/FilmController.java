@@ -30,7 +30,12 @@ public ModelAndView viewFilmById(@RequestParam("id") int id) {
 	ModelAndView mv = new ModelAndView();
 	Film film = filmDAO.findFilmById(id);
 	List<String> listFilm= new ArrayList<>();
-	listFilm.add(film.toString());
+	try {
+		listFilm.add(film.toString());	
+	} catch (NullPointerException e) {
+		listFilm.add(String.format("<h2>No film match the id %d</h2>", id));
+	}
+	
 	mv.addObject("listFilm", listFilm);
 	mv.setViewName("WEB-INF/views/viewfilm.jsp");
 	return mv;
