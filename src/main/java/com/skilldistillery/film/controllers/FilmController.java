@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.film.database.FilmDAO;
 import com.skilldistillery.film.entities.Film;
@@ -39,7 +40,7 @@ public class FilmController {
 		if (film != null) {
 			listFilm.add(film);
 		} else {
-			listFilm.add(null); // Add a null film to indicate no match
+			listFilm.add(null);
 		}
 
 		mv.addObject("listFilm", listFilm);
@@ -93,7 +94,6 @@ public class FilmController {
 
 	@RequestMapping(path = "deletefilm.do", method = RequestMethod.GET)
 	public String showDeleteFilmForm(@RequestParam("id") int id, Model model) {
-		// Display the form for deleting a film
 		Film film = filmDAO.findFilmById(id);
 		model.addAttribute("film", film);
 		return "WEB-INF/views/deleteFilm.jsp";
@@ -107,15 +107,59 @@ public class FilmController {
 		if (film != null) {
 			boolean isDeleted = filmDAO.deleteFilm(film);
 			if (isDeleted) {
-				mv.addObject("message", "Film deleted successfully.");
+				mv.addObject("Message", "Film deleted successfully.");
 			} else {
-				mv.addObject("error", "Error deleting film.");
+				mv.addObject("Error", "Error deleting film.");
 			}
 		} else {
-			mv.addObject("error", "Film not found.");
+			mv.addObject("Error", "Film not found.");
 		}
 
 		mv.setViewName("redirect:/home.do");
 		return mv;
 	}
+
+	@RequestMapping(path = "updatefilm.do", method = RequestMethod.GET)
+	public String showUpdateFilmForm(@RequestParam("id") int id, Model model) {
+		Film film = filmDAO.findFilmById(id);
+		model.addAttribute("film", film);
+		return "WEB-INF/views/updatefilm.jsp";
+	}
+
+	@RequestMapping(path = "updatefilm.do", method = RequestMethod.POST)
+	public String updateFilm(@ModelAttribute("film") Film updatedFilm, Model model) {
+		Film film = filmDAO.findFilmById(updatedFilm.getId());
+
+		if (film != null) {
+			film.setTitle(updatedFilm.getTitle());
+			film.setDescription(updatedFilm.getDescription());
+			film.setReleaseYear(updatedFilm.getReleaseYear());
+			film.setLanguage(updatedFilm.getLanguage());
+			film.setRentalDuration(updatedFilm.getRentalDuration());
+			film.setRentalRate(updatedFilm.getRentalRate());
+			film.setLength(updatedFilm.getLength());
+			film.setReplacementCost(updatedFilm.getReplacementCost());
+			film.setRating(updatedFilm.getRating());
+
+			try {
+				boolean isUpdated = filmDAO.updateFilm(film);
+				if (isUpdated) {
+					model.addAttribute("message", "Film updated successfully.");
+				} else {
+					model.addAttribute("error", "Error updating film.");
+				}
+			} catch (Exception e) {
+				model.addAttribute("error", "An error occurred while updating the film.");
+			}
+		} else {
+			model.addAttribute("error", "Film not found.");
+		}
+
+		List<Film> listFilm = new ArrayList<>();
+		listFilm.add(film);
+		model.addAttribute("listFilm", listFilm);
+
+		return "WEB-INF/views/viewfilm.jsp";
+	}
+
 }

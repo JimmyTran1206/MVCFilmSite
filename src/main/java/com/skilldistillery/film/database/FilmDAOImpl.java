@@ -200,7 +200,6 @@ public class FilmDAOImpl implements FilmDAO {
 			pstmt.setInt(7, film.getLength());
 			pstmt.setDouble(8, film.getReplacementCost());
 			pstmt.setString(9, film.getRating());
-			System.out.println("*******************"+pstmt);
 			int insertCount = pstmt.executeUpdate();
 			if (insertCount == 1) {
 				ResultSet keys = pstmt.getGeneratedKeys();
@@ -256,6 +255,12 @@ public class FilmDAOImpl implements FilmDAO {
 		}
 		closeDBConnection();
 		return isDeleted;
+	}
+
+	@Override
+	public boolean updateFilm(Film film) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

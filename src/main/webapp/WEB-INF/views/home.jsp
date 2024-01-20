@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +18,7 @@
 	</header>
 	<main>
 		<div class="accordion" id="accordionMain">
+			<!-- Search film by Id -->
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingOne">
 					<button class="accordion-button collapsed" type="button"
@@ -28,7 +29,6 @@
 				<div id="collapseOne" class="accordion-collapse collapse"
 					aria-labelledby="headingOne" data-bs-parent="#accordionMain">
 					<div class="accordion-body">
-
 						<form action="viewfilmbyid.do" method="GET">
 							<div class="form-group">
 								<label for="filmId">Film Id</label> <input type="number"
@@ -42,6 +42,7 @@
 				</div>
 			</div>
 
+			<!-- Search film by keyword -->
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingTwo">
 					<button class="accordion-button collapsed" type="button"
@@ -65,6 +66,7 @@
 				</div>
 			</div>
 
+			<!-- Add new film -->
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingThree">
 					<button class="accordion-button collapsed" type="button"
@@ -79,27 +81,25 @@
 							<div class="form-group">
 								<label for="filmTitle">Film Title*</label> <input id="filmTitle"
 									type="text" class="form-control" placeholder="Enter a title"
-									name="title" required> <small class="form-text text-muted">Enter
-									a film title to be added to the database</small>
-
+									name="title" required> <small
+									class="form-text text-muted">Enter a film title to be
+									added to the database</small>
 							</div>
-
 							<div class="form-group">
 								<label for="filmDescription">Film Description*</label>
 								<textarea id="filmDescription" class="form-control"
 									placeholder="Enter a description" name="description" required></textarea>
+
 								<small class="form-text text-muted">Enter a film
 									description to be added to the database</small>
 							</div>
-
 							<div class="form-group">
 								<label for="filmReleaseYear">Release Year*</label> <input
 									id="filmReleaseYear" type="number" class="form-control"
-									placeholder="Enter the release year" name="releaseYear" required>
-								<small class="form-text text-muted">Enter the film
-									release year</small>
+									placeholder="Enter the release year" name="releaseYear"
+									required> <small class="form-text text-muted">Enter
+									the film release year</small>
 							</div>
-
 							<div class="form-group">
 								<label for="filmLanguage">Language</label> <select
 									id="filmLanguage" class="form-control" name="languageId">
@@ -116,32 +116,33 @@
 							<div class="form-group">
 								<label for="filmRentalDuration">Rental duration</label> <input
 									id="filmRentalDuration" type="number" class="form-control"
-									placeholder="Enter the rental duration" name="rentalDuration" value=3>
-								<small class="form-text text-muted">Enter the rental
-									duration</small>
+									placeholder="Enter the rental duration" name="rentalDuration"
+									value=3> <small class="form-text text-muted">Enter
+									the rental duration</small>
 							</div>
 
 							<div class="form-group">
 								<label for="filmRentalRate">Rental Rate</label> <input
 									id="filmRentalRate" type="number" step="0.01"
 									class="form-control" placeholder="Enter the rental rate"
-									name="rentalRate" value=4.99> <small class="form-text text-muted">Enter
-									the rental rate</small>
+									name="rentalRate" value=4.99> <small
+									class="form-text text-muted">Enter the rental rate</small>
 							</div>
 
 							<div class="form-group">
-								<label for="filmLength">Length</label> <input
-									id="filmLength" type="number" class="form-control"
-									placeholder="Enter film length" name="length" value = 90>
-								<small class="form-text text-muted">Enter the film length</small>
+								<label for="filmLength">Length</label> <input id="filmLength"
+									type="number" class="form-control"
+									placeholder="Enter film length" name="length" value=90>
+								<small class="form-text text-muted">Enter the film
+									length</small>
 							</div>
 
 							<div class="form-group">
 								<label for="filmReplacementCost">Replacement Cost</label> <input
 									id="filmReplacementCost" type="number" step="0.01"
 									class="form-control" placeholder="Enter the replacement cost"
-									name="replacementCost" value= 19.99> <small class="form-text text-muted">Enter
-									the replacement cost</small>
+									name="replacementCost" value=19.99> <small
+									class="form-text text-muted">Enter the replacement cost</small>
 							</div>
 
 							<div class="form-group">
@@ -156,7 +157,6 @@
 									rating</small>
 							</div>
 
-
 							<button type="submit" class="btn btn-primary">Add new
 								film</button>
 						</form>
@@ -164,25 +164,34 @@
 				</div>
 			</div>
 
+			<!-- Update Film -->
 			<div class="accordion-item">
-				<h2 class="accordion-header" id="headingFour">
+				<h2 class="accordion-header" id="headingUpdateFilm">
 					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse" data-bs-target="#collapseFour"
-						aria-expanded="false" aria-controls="collapseFour">
+						data-bs-toggle="collapse" data-bs-target="#collapseUpdateFilm"
+						aria-expanded="false" aria-controls="collapseUpdateFilm">
+						Update Film</button>
+				</h2>
+				<div id="collapseUpdateFilm" class="accordion-collapse collapse"
+					aria-labelledby="headingUpdateFilm" data-bs-parent="#accordionMain">
+					<div class="accordion-body">
+						<jsp:include page="updatefilm.jsp" />
+					</div>
+				</div>
+			</div>
+
+			<!-- Delete Film -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingDeleteFilm">
+					<button class="accordion-button collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#collapseDeleteFilm"
+						aria-expanded="false" aria-controls="collapseDeleteFilm">
 						Delete Film</button>
 				</h2>
-				<div id="collapseFour" class="accordion-collapse collapse"
-					aria-labelledby="headingFour" data-bs-parent="#accordionMain">
+				<div id="collapseDeleteFilm" class="accordion-collapse collapse"
+					aria-labelledby="headingDeleteFilm" data-bs-parent="#accordionMain">
 					<div class="accordion-body">
-						<form action="deletefilm.do" method="GET">
-							<div class="form-group">
-								<label for="filmId">Film Id</label> <input type="text"
-									class="form-control" placeholder="Enter the film id" name="id">
-								<small class="form-text text-muted">Enter an integer
-									value representing a film id</small>
-							</div>
-							<button type="submit" class="btn btn-danger">Delete Film</button>
-						</form>
+						<jsp:include page="deleteFilm.jsp" />
 					</div>
 				</div>
 			</div>
