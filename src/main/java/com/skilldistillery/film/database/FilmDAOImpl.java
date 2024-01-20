@@ -179,16 +179,8 @@ public class FilmDAOImpl implements FilmDAO {
 		startDBConnection();
 		try {
 			conn.setAutoCommit(false); // START TRANSACTION
-			String sql = "INSERT INTO film("
-					+ "title, "
-					+ "description, "
-					+ "release_year,  "
-					+ "language_id, "
-					+ "rental_duration, "
-					+ "rental_rate, "
-					+ "length,"
-					+ "replacement_cost, "
-					+ "rating) "
+			String sql = "INSERT INTO film(" + "title, " + "description, " + "release_year,  " + "language_id, "
+					+ "rental_duration, " + "rental_rate, " + "length," + "replacement_cost, " + "rating) "
 					+ "VALUES (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, film.getTitle());
@@ -259,8 +251,53 @@ public class FilmDAOImpl implements FilmDAO {
 
 	@Override
 	public boolean updateFilm(Film film) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection conn = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PWD);
+			conn.setAutoCommit(false); // START TRANSACTION
+
+			String sql = "UPDATE film SET title=?, description=?, release_year=?, length=?, replacement_cost=?, rating=? "
+					+ "WHERE id =?";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLength());
+			stmt.setDouble(5, film.getReplacementCost());
+			stmt.setString(6, film.getRating());
+			stmt.setInt(7, film.getId());
+
+			int updateCount = stmt.executeUpdate();
+
+			if (updateCount == 1) {
+				sql = "DELETE FROM film_actor WHERE film_id = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, film.getId());
+
+				updateCount = stmt.executeUpdate();
+				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+				stmt = conn.prepareStatement(sql);
+				for (Actor actor : film.getActorList()) {
+					stmt.setInt(1, film.getId());
+					stmt.setInt(2, actor.getId());
+					updateCount = stmt.executeUpdate();
+				}
+				conn.commit();
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 
 }
