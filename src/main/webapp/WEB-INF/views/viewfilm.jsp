@@ -29,7 +29,7 @@
 				<li>Casting Actors:</li>
 				<ol>
 					<c:forEach var="actor" items="${film.actorList}">
-						<li>${actor.firstName}${actor.lastName}</li>
+						<li>${actor.firstName} ${actor.lastName}</li>
 					</c:forEach>
 				</ol>
 			</ul>
