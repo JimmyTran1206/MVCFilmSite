@@ -24,6 +24,11 @@ private FilmDAO filmDAO;
 public String home() {
 	return "WEB-INF/views/home.jsp";
 }
+
+@RequestMapping("home.do")
+public String returnHome() {
+	return "WEB-INF/views/home.jsp";
+}
 	
 @RequestMapping(path="viewfilmbyid.do")
 public ModelAndView viewFilmById(@RequestParam("id") int id) {
