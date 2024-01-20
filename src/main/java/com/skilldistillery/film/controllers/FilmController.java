@@ -1,12 +1,21 @@
 package com.skilldistillery.film.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.skilldistillery.film.database.FilmDAO;
 
 @Controller
 public class FilmController {
 //TODO Complete Controller
 	
-//	@Autowired
+@Autowired
+private FilmDAO filmDAO;
+
+@RequestMapping("")
+public String home() {
+	return "WEB-INF/views/home.jsp";
+}
 	
 	
 	
