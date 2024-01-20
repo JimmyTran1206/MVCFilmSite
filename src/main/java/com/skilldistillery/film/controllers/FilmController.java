@@ -26,6 +26,11 @@ public class FilmController {
 		return "WEB-INF/views/home.jsp";
 	}
 
+	@RequestMapping("home.do")
+	public String returnHome() {
+		return "WEB-INF/views/home.jsp";
+	}
+
 	@RequestMapping(path = "viewfilmbyid.do")
 	public ModelAndView viewFilmById(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView();

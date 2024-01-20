@@ -28,6 +28,7 @@
 				<div id="collapseOne" class="accordion-collapse collapse"
 					aria-labelledby="headingOne" data-bs-parent="#accordionMain">
 					<div class="accordion-body">
+
 						<form action="viewfilmbyid.do" method="GET">
 							<div class="form-group">
 								<label for="filmId">Film Id</label> <input type="text"
@@ -76,12 +77,70 @@
 					<div class="accordion-body">
 						<form action="insertfilm.do" method="POST">
 							<div class="form-group">
-								<label for="filmId">Film Title</label> <input type="text"
-									class="form-control" placeholder="Enter a title" name="title">
-								<small class="form-text text-muted">Enter a film title
-									to be added to the database</small>
+								<label for="filmTitle">Film Title</label> <input id="filmTitle"
+									type="text" class="form-control" placeholder="Enter a title"
+									name="title"> <small class="form-text text-muted">Enter
+									a film title to be added to the database</small>
+
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
+
+							<div class="form-group">
+								<label for="filmDescription">Film Description</label>
+								<textarea id="filmDescription"
+									class="form-control" placeholder="Enter a description"
+									name="description"></textarea>
+								<small class="form-text text-muted">Enter a film
+									description to be added to the database</small>
+							</div>
+
+							<div class="form-group">
+								<label for="filmReleaseYear">Release Year</label> <input
+									id="filmReleaseYear" type="number" class="form-control"
+									placeholder="Enter the release year" name="releaseYear">
+								<small class="form-text text-muted">Enter the film
+									release year</small>
+							</div>
+
+							<div class="form-group">
+								<label for="filmLanguage">Language</label> <select
+									id="filmLanguage" class="form-control" name="languageId">
+									<option value="1" selected>English</option>
+									<option value="2">Italian</option>
+									<option value="3">Japanese</option>
+									<option value="4">Mandarin</option>
+									<option value="5">French</option>
+									<option value="6">German</option>
+								</select> <small class="form-text text-muted">Select the film
+									language</small>
+							</div>
+							
+							<div class="form-group">
+								<label for="filmRentalDuration">Rental duration</label> <input
+									id="filmRentalDuration" type="number" class="form-control"
+									placeholder="Enter the release year" name="rentalDuration">
+								<small class="form-text text-muted">Enter the film
+									release year</small>
+							</div>
+							
+							
+							
+							<div class="form-group">
+								<label for="filmRating">Rating</label> <select id="filmRating"
+									class="form-control" name="rating">
+									<option value="G" selected>G</option>
+									<option value="PG">PG</option>
+									<option value="PG13">PG13</option>
+									<option value="R">R</option>
+									<option value="NC17">NC17</option>
+								</select> <small class="form-text text-muted">Select the film
+									rating</small>
+							</div>
+
+
+
+
+							<button type="submit" class="btn btn-primary">Add new
+								film</button>
 						</form>
 					</div>
 				</div>
