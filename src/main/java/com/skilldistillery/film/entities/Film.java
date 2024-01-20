@@ -20,24 +20,19 @@ public class Film {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Film id #"+id+  "\n");
-		sb.append("Title: "+ title + "\n");
-		sb.append("Release year: "+ releaseYear + "\n");
-		sb.append("Rating: "+ rating + "\n");
-		sb.append("Language: "+ language + "\n");
-		sb.append("Description: "+ description + "\n");
-		
+		sb.append(String.format("<li>Film id: #%d</li>", id));
+		sb.append(String.format("<li>Title: %s</li>", title));
+		sb.append(String.format("<li>Release Year: %d</li>", releaseYear));
+		sb.append(String.format("<li>Rating: %s</li>", rating));
+		sb.append(String.format("<li>Language: %s</li>", language));
+		sb.append(String.format("<li>Description: %s</li>",description));
+		sb.append("<ol>");
 		sb.append("--Casting Actors:-- \n");
-		int count=1;
 		for (Actor actor:actorList) {
-			sb.append(count+". ");
-			sb.append(actor.getFirstName());
-			sb.append(" ");
-			sb.append(actor.getLastName());
-			sb.append(". \n");
-			count++;
+			sb.append(String.format("<li>%s %s</li>", actor.getFirstName(),actor.getLastName() ));
 		}
-		sb.append("-------------------------------\n");
+		sb.append("</ol>");		
+		sb.append("-------------------------------");
 		return sb.toString();
 
 	}
