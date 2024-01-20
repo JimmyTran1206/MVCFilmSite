@@ -25,13 +25,13 @@ public class Film {
 		sb.append(String.format("<li>Release Year: %d</li>", releaseYear));
 		sb.append(String.format("<li>Rating: %s</li>", rating));
 		sb.append(String.format("<li>Language: %s</li>", language));
-		sb.append(String.format("<li>Description: %s</li>",description));
+		sb.append(String.format("<li>Description: %s</li>", description));
 		sb.append("<ol>");
 		sb.append("--Casting Actors:-- \n");
-		for (Actor actor:actorList) {
-			sb.append(String.format("<li>%s %s</li>", actor.getFirstName(),actor.getLastName() ));
+		for (Actor actor : actorList) {
+			sb.append(String.format("<li>%s %s</li>", actor.getFirstName(), actor.getLastName()));
 		}
-		sb.append("</ol>");		
+		sb.append("</ol>");
 		sb.append("-------------------------------");
 		return sb.toString();
 

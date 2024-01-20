@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVC Film Site</title>
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
-<meta charset="UTF-8">
-<title>Home</title>
 </head>
 <body>
 	<header>
@@ -82,6 +81,7 @@
 									type="text" class="form-control" placeholder="Enter a title"
 									name="title"> <small class="form-text text-muted">Enter
 									a film title to be added to the database</small>
+
 							</div>
 
 							<div class="form-group">
@@ -145,8 +145,30 @@
 					</div>
 				</div>
 			</div>
-		</div>
 
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingFour">
+					<button class="accordion-button collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#collapseFour"
+						aria-expanded="false" aria-controls="collapseFour">
+						Delete Film</button>
+				</h2>
+				<div id="collapseFour" class="accordion-collapse collapse"
+					aria-labelledby="headingFour" data-bs-parent="#accordionMain">
+					<div class="accordion-body">
+						<form action="deletefilm.do" method="GET">
+							<div class="form-group">
+								<label for="filmId">Film Id</label> <input type="text"
+									class="form-control" placeholder="Enter the film id" name="id">
+								<small class="form-text text-muted">Enter an integer
+									value representing a film id</small>
+							</div>
+							<button type="submit" class="btn btn-danger">Delete Film</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
