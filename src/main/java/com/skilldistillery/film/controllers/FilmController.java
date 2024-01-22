@@ -52,13 +52,13 @@ public class FilmController {
 	public ModelAndView insertFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		List<Film> listFilm = new ArrayList<>();
-		Film insertedFilm = filmDAO.createFilm(film); // insert the film, get the id.
-		Film retrievedFilm = filmDAO.findFilmById(insertedFilm.getId()); // retrieve the new film by Id to update
-																			// language field
+		Film insertedFilm = filmDAO.createFilm(film); 
+		Film retrievedFilm = filmDAO.findFilmById(insertedFilm.getId()); 
+																			
 		if (film != null) {
 			listFilm.add(retrievedFilm);
 		} else {
-			listFilm.add(null); // Add a null film to indicate no match
+			listFilm.add(null); 
 		}
 		mv.addObject("listFilm", listFilm);
 		mv.setViewName("WEB-INF/views/viewfilm.jsp");
@@ -80,14 +80,12 @@ public class FilmController {
 
 	@RequestMapping(path = "addfilm.do", method = RequestMethod.GET)
 	public String showAddFilmForm(Model model) {
-		// Display the form for adding a new film
 		model.addAttribute("film", new Film());
 		return "WEB-INF/views/addFilm.jsp";
 	}
 
 	@RequestMapping(path = "addfilm.do", method = RequestMethod.POST)
 	public String addFilm(@ModelAttribute("film") Film film) {
-		// Handle form submission and add new film
 		filmDAO.createFilm(film);
 		return "redirect:viewfilmbyid.do?id=" + film.getId();
 	}
@@ -100,23 +98,25 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "deletefilm.do", method = RequestMethod.POST)
-	public ModelAndView deleteFilm(@RequestParam("id") int filmId) {
-		ModelAndView mv = new ModelAndView();
+	public String deleteFilm(@RequestParam("id") int filmId, RedirectAttributes redirectAttributes) {
 		Film film = filmDAO.findFilmById(filmId);
 
 		if (film != null) {
-			boolean isDeleted = filmDAO.deleteFilm(film);
-			if (isDeleted) {
-				mv.addObject("Message", "Film deleted successfully.");
-			} else {
-				mv.addObject("Error", "Error deleting film.");
+			try {
+				boolean isDeleted = filmDAO.deleteFilm(film);
+				if (isDeleted) {
+					redirectAttributes.addFlashAttribute("message", "Film deleted successfully.");
+				} else {
+					redirectAttributes.addFlashAttribute("error", "Error deleting film.");
+				}
+			} catch (Exception e) {
+				redirectAttributes.addFlashAttribute("error", "An error occurred while deleting the film.");
 			}
 		} else {
-			mv.addObject("Error", "Film not found.");
+			redirectAttributes.addFlashAttribute("error", "Film not found.");
 		}
 
-		mv.setViewName("redirect:/home.do");
-		return mv;
+		return "forward:/WEB-INF/views/display-message.jsp";
 	}
 
 	@RequestMapping(path = "updatefilm.do", method = RequestMethod.GET)

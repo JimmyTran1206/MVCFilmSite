@@ -11,12 +11,69 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+	integrity="sha384-Jfn9j8b+E3t/AKm08TsdL3tiTlSv/HEP2zzLu0fNlUCGUHJ43JqG5pqD7XDblv2H"
+	crossorigin="anonymous">
+
+</head>
+<style>
+body {
+	background-color: #f8f9fa;
+}
+
+header {
+	background-color: #343a40;
+	padding: 1rem;
+	color: white;
+	text-align: center;
+}
+
+main {
+	margin-top: 2rem;
+}
+
+.accordion-item {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+	overflow: hidden;
+}
+
+.accordion-button {
+	background-color: #343a40;
+}
+
+.accordion-button:hover {
+	background-color: #495057;
+	color: white;
+}
+
+.btn-primary {
+	background-color: #007bff;
+	border: none;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	color: white;
+}
+</style>
 </head>
 <body>
-	<header>
-		<h1>MVC Film Site</h1>
+<body>
+
+	<header
+		style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN7ZRcoaxNZWD_2KI-bbK3KLaS2fLQmgBjaw&usqp=CAU'); background-size: cover; position: relative;">
+		<div class="overlay"></div>
+		<div class="container text-white">
+			<h1 class="fas fa-film">MVC Film Site</h1>
+		</div>
 	</header>
-	<main>
+
+
+	<main class="container mt-5">
 		<div class="accordion" id="accordionMain">
 			<!-- Search film by Id -->
 			<div class="accordion-item">
@@ -201,5 +258,7 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
+
+
 </body>
 </html>
