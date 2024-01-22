@@ -18,9 +18,12 @@ import com.skilldistillery.film.entities.Film;
 
 @Controller
 public class FilmController {
+	private final FilmDAO filmDAO;
 
 	@Autowired
-	private FilmDAO filmDAO;
+	public FilmController(FilmDAO filmDAO) {
+		this.filmDAO = filmDAO;
+	}
 
 	@RequestMapping("")
 	public String home() {
@@ -52,13 +55,13 @@ public class FilmController {
 	public ModelAndView insertFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		List<Film> listFilm = new ArrayList<>();
-		Film insertedFilm = filmDAO.createFilm(film); 
-		Film retrievedFilm = filmDAO.findFilmById(insertedFilm.getId()); 
-																			
+		Film insertedFilm = filmDAO.createFilm(film);
+		Film retrievedFilm = filmDAO.findFilmById(insertedFilm.getId());
+
 		if (film != null) {
 			listFilm.add(retrievedFilm);
 		} else {
-			listFilm.add(null); 
+			listFilm.add(null);
 		}
 		mv.addObject("listFilm", listFilm);
 		mv.setViewName("WEB-INF/views/viewfilm.jsp");
@@ -99,24 +102,23 @@ public class FilmController {
 
 	@RequestMapping(path = "deletefilm.do", method = RequestMethod.POST)
 	public String deleteFilm(@RequestParam("id") int filmId, RedirectAttributes redirectAttributes) {
-		Film film = filmDAO.findFilmById(filmId);
-
-		if (film != null) {
-			try {
+		try {
+			Film film = filmDAO.findFilmById(filmId);
+			if (film != null) {
 				boolean isDeleted = filmDAO.deleteFilm(film);
 				if (isDeleted) {
 					redirectAttributes.addFlashAttribute("message", "Film deleted successfully.");
 				} else {
 					redirectAttributes.addFlashAttribute("error", "Error deleting film.");
 				}
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("error", "An error occurred while deleting the film.");
+			} else {
+				redirectAttributes.addFlashAttribute("error", "Film not found.");
 			}
-		} else {
-			redirectAttributes.addFlashAttribute("error", "Film not found.");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "An error occurred while deleting the film.");
 		}
 
-		return "forward:/WEB-INF/views/display-message.jsp";
+		return "redirect:/deletefilmresult.do";
 	}
 
 	@RequestMapping(path = "updatefilm.do", method = RequestMethod.GET)
@@ -127,39 +129,34 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "updatefilm.do", method = RequestMethod.POST)
-	public String updateFilm(@ModelAttribute("film") Film updatedFilm, Model model) {
-		Film film = filmDAO.findFilmById(updatedFilm.getId());
+	public String updateFilm(@ModelAttribute("film") Film updatedFilm, RedirectAttributes redirectAttributes) {
+	    Film film = filmDAO.findFilmById(updatedFilm.getId());
 
-		if (film != null) {
-			film.setTitle(updatedFilm.getTitle());
-			film.setDescription(updatedFilm.getDescription());
-			film.setReleaseYear(updatedFilm.getReleaseYear());
-			film.setLanguage(updatedFilm.getLanguage());
-			film.setRentalDuration(updatedFilm.getRentalDuration());
-			film.setRentalRate(updatedFilm.getRentalRate());
-			film.setLength(updatedFilm.getLength());
-			film.setReplacementCost(updatedFilm.getReplacementCost());
-			film.setRating(updatedFilm.getRating());
+	    if (film != null) {
+	        film.setTitle(updatedFilm.getTitle());
+	        film.setDescription(updatedFilm.getDescription());
+	        film.setReleaseYear(updatedFilm.getReleaseYear());
+	        film.setLanguage(updatedFilm.getLanguage());
+	        film.setRentalDuration(updatedFilm.getRentalDuration());
+	        film.setRentalRate(updatedFilm.getRentalRate());
+	        film.setLength(updatedFilm.getLength());
+	        film.setReplacementCost(updatedFilm.getReplacementCost());
+	        film.setRating(updatedFilm.getRating());
 
-			try {
-				boolean isUpdated = filmDAO.updateFilm(film);
-				if (isUpdated) {
-					model.addAttribute("message", "Film updated successfully.");
-				} else {
-					model.addAttribute("error", "Error updating film.");
-				}
-			} catch (Exception e) {
-				model.addAttribute("error", "An error occurred while updating the film.");
-			}
-		} else {
-			model.addAttribute("error", "Film not found.");
-		}
+	        try {
+	            boolean isUpdated = filmDAO.updateFilm(film);
+	            if (isUpdated) {
+	                redirectAttributes.addFlashAttribute("message", "Film updated successfully.");
+	            } else {
+	                redirectAttributes.addFlashAttribute("error", "Error updating film.");
+	            }
+	        } catch (Exception e) {
+	            redirectAttributes.addFlashAttribute("error", "An error occurred while updating the film.");
+	        }
+	    }
 
-		List<Film> listFilm = new ArrayList<>();
-		listFilm.add(film);
-		model.addAttribute("listFilm", listFilm);
-
-		return "WEB-INF/views/viewfilm.jsp";
+	    return "redirect:/displaymessage.do";
 	}
+
 
 }
