@@ -1,6 +1,6 @@
 # MVCFilmSite
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrI2kRGEAHJ7Wrkehrb9ZKExAoc6d6kTSmiQ&usqp=CAU" alt="MVC Film Logo">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrI2kRGEAHJ7Wrkehrb9ZKExAoc6d6kTSmiQ&usqp=CAU" alt="MVC Film Logo" width="400">
 
 ### Overview
 The **FilmQueryProject** started as a command-line application, utilizing JDBC and MySQL to retrieve and display film data. It implemented a menu-driven interface that allowed users to look up films by ID, search keywords, or exit the application. The project focused on JDBC implementation, encapsulation of JDBC code within the `DatabaseAccessorObject` class, object-oriented programming principles, exception handling, and a simple user interface.
